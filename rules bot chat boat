@@ -1,0 +1,68 @@
+import re, random
+from colorama import Fore, init
+
+init(autoreset=True)
+
+destinations = {
+    "beaches": ["Bali", "Maldives", "Phuket"],
+    "mountains": ["Swiss Alps", "Rocky Mountains", "Himalayas"],
+    "cities": ["Tokyo", "Paris", "New York"]
+}
+
+jokes = [
+    "Why don't programmers like nature? Too many bugs!",
+    "Why did the computer go to the doctor? Because it had a virus!",
+    "Why do travelers always feel warm? Because of all their hot spots!"
+]
+
+def normalize_input(text):
+    return re.sub(r"\s+", "", text.strip().lower())
+
+def recommend():
+    print(Fore.CYAN + "TravelBot: Beaches, mountains, or cities?")
+    preference = input(Fore.YELLOW + "You: ")
+    preferences = normalize_input(preference)
+
+    if "beach" in preferences:
+        choice = random.choice(destinations["beaches"])
+        print(Fore.GREEN + f"TravelBot: I recommend {choice}!")
+
+    elif "mountain" in preferences:
+        choice = random.choice(destinations["mountains"])
+        print(Fore.GREEN + f"TravelBot: I recommend {choice}!")
+
+    elif "city" in preferences:
+        choice = random.choice(destinations["cities"])
+        print(Fore.GREEN + f"TravelBot: I recommend {choice}!")
+
+    else:
+        print(Fore.RED + "TravelBot: Sorry, I don't understand that preference.")
+
+def tell_joke():
+    joke = random.choice(jokes)
+    print(Fore.MAGENTA + "TravelBot:", joke)
+
+def chatbot():
+    print(Fore.CYAN + "TravelBot: Hello! I can help you plan a trip.")
+    print(Fore.CYAN + "TravelBot: Type 'travel' for a recommendation.")
+    print(Fore.CYAN + "TravelBot: Type 'joke' for a joke.")
+    print(Fore.CYAN + "TravelBot: Type 'exit' to quit.")
+
+    while True:
+        user_input = input(Fore.YELLOW + "You: ")
+        command = normalize_input(user_input)
+
+        if command == "travel":
+            recommend()
+
+        elif command == "joke":
+            tell_joke()
+
+        elif command == "exit":
+            print(Fore.CYAN + "TravelBot: Goodbye! Have a great trip!")
+            break
+
+        else:
+            print(Fore.RED + "TravelBot: I don't understand. Try 'travel', 'joke', or 'exit'.")
+
+chatbot()
