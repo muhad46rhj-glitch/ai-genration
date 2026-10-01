@@ -1,0 +1,31 @@
+from textblob import TextBlob
+
+movies = [
+    {"title": "Inception", "genre": "Sci-Fi", "rating": 8.8},
+    {"title": "Interstellar", "genre": "Sci-Fi", "rating": 8.7},
+    {"title": "The Dark Knight", "genre": "Action", "rating": 9.0},
+    {"title": "Forrest Gump", "genre": "Drama", "rating": 8.8},
+    {"title": "The Shawshank Redemption", "genre": "Drama", "rating": 9.3},
+    {"title": "Gladiator", "genre": "Action", "rating": 8.5}
+]
+
+print("Movie Recommendation System")
+
+genre = input("Enter genre: ")
+mood = input("How do you feel today? ")
+rating = float(input("Enter minimum IMDb rating: "))
+
+polarity = TextBlob(mood).sentiment.polarity
+
+print("\nRecommended Movies:\n")
+
+for movie in movies:
+    if movie["genre"].lower() == genre.lower() and movie["rating"] >= rating:
+        print(f"{movie['title']} ({movie['rating']})")
+
+if polarity > 0:
+    print("\nMood: Positive 😊")
+elif polarity < 0:
+    print("\nMood: Negative ☹️")
+else:
+    print("\nMood: Neutral 😐")
